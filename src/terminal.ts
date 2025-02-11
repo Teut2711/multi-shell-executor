@@ -14,11 +14,12 @@ const ANSI_COLORS = [
   "BrightMagenta",
   "BrightCyan",
 ];
+
 export interface TerminalConfig {
   name: string;
   color?: string;
   command?: string;
-  cwd?: string; // Added cwd parameter
+  cwd?: string;
 }
 
 export function createAndShowTerminal(
@@ -28,10 +29,13 @@ export function createAndShowTerminal(
   const terminalColor =
     config.color || `terminal.ansi${ANSI_COLORS[index % ANSI_COLORS.length]}`;
 
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+  const cwd = config.cwd ? `${workspaceFolder}/${config.cwd}` : workspaceFolder;
+
   const terminal = vscode.window.createTerminal({
     name: config.name,
     color: new vscode.ThemeColor(terminalColor),
-    cwd: config.cwd, // Use cwd parameter
+    cwd: cwd,
   });
 
   terminal.show();

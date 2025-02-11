@@ -12,6 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
       const terminalConfig: TerminalConfig[] = vscode.workspace
         .getConfiguration()
         .get("multi-shell-executer.config", []);
+      
 
       if (terminalConfig.length === 0) {
         vscode.window.showInformationMessage(
