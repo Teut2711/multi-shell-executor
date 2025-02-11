@@ -2,9 +2,15 @@
   "name": "multi-shell-executor",
   "displayName": "Multi Shell Executor",
   "description": "Setup multiple shells to be configured on start with commands run",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "icon": "images/shell.webp",
   "engines": {
     "vscode": "^1.97.0"
+  },
+  "publisher": "VisheshMangla",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Teut2711/multi-shell-executor"
   },
   "categories": [
     "Other"
