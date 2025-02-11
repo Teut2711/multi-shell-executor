@@ -2,7 +2,7 @@
   "name": "multi-shell-executor",
   "displayName": "Multi Shell Executor",
   "description": "Setup multiple shells to be configured on start with commands run",
-  "version": "0.1.0",
+  "version": "0.0.4",
   "icon": "images/shell.webp",
   "engines": {
     "vscode": "^1.97.0"
