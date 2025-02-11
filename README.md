@@ -73,28 +73,10 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 2. Search for and run the command: **Multi-Shell Executor: Launch Terminals**.
 3. The extension will open multiple terminals as per your configuration.
 
-## Requirements
-
-- Visual Studio Code (latest version recommended).
-- Node.js installed (for development and building).
-
-## Contribution
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch for your feature/fix.
-3. Commit your changes with a meaningful message.
-4. Open a Pull Request.
-
-## Known Issues
-
-- Some terminal color themes may not support custom colors.
-- Ensure valid paths are used in the `cwd` field to avoid errors.
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.3
 - Initial release with terminal configuration and execution support.
 
 ## License
