@@ -1,0 +1,20 @@
+[
+  {
+    "name": "List",
+    "color": "terminal.ansiBlue",
+    "command": "ls",
+    "cwd": "."
+  },
+  {
+    "name": "List with details",
+    "color": "terminal.ansiGreen",
+    "command": "ls -l",
+    "cwd": "."
+  },
+  {
+    "name": "List all",
+    "color": "terminal.ansiRed",
+    "command": "ls -a",
+    "cwd": "."
+  }
+]

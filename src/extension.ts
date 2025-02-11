@@ -1,18 +1,16 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import { createAndShowTerminal, TerminalConfig } from "./terminal";
 
-export function activate(context: vscode.ExtensionContext) {
+import { createAndShowTerminal, readConfig, TerminalConfig } from "./terminal";
+
+export function activate(context: vscode.ExtensionContext): void {
   console.log('Your extension "multi-shell-executor" is now active!');
 
   const disposable = vscode.commands.registerCommand(
     "multi-shell-executor.launchTerminals",
-    () => {
-      const terminalConfig: TerminalConfig[] = vscode.workspace
-        .getConfiguration()
-        .get("multi-shell-executer.config", []);
-      
+    (): void => {
+      let terminalConfig: TerminalConfig[] = readConfig();
 
       if (terminalConfig.length === 0) {
         vscode.window.showInformationMessage(
@@ -21,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
 
-      terminalConfig.forEach((config, index) => {
+      terminalConfig.forEach((config: TerminalConfig, index: number): void => {
         createAndShowTerminal(config, index);
       });
 
@@ -34,4 +32,4 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-export function deactivate() {}
+export function deactivate(): void {}

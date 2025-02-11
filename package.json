@@ -103,6 +103,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "multi-shell-executor": "file:"
+    "multi-shell-executor": "file:",
+    "sinon": "^19.0.2"
   }
 }
