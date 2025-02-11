@@ -73,10 +73,10 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 2. Search for and run the command: **Multi-Shell Executor: Launch Terminals**.
 3. The extension will open multiple terminals as per your configuration.
 
-
 ## Release Notes
 
-### 0.0.4
+### 0.0.1
+
 - Initial release with terminal configuration and execution support.
 
 ## License
@@ -86,4 +86,3 @@ This project is licensed under the Mozilla Public License Version 2.0. See the [
 ## Repository
 
 [GitHub Repository](https://github.com/Teut2711/multi-shell-executor)
-
