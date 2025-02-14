@@ -21,59 +21,7 @@
     "commands": [
       {
         "command": "multi-shell-executor.launchTerminals",
-        "title": "Launch multiple terminals",
-        "configuration": {
-          "properties": {
-            "threeTerminals.config": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Name of the terminal"
-                  },
-                  "color": {
-                    "type": "string",
-                    "enum": [
-                      "terminal.ansiBlack",
-                      "terminal.ansiRed",
-                      "terminal.ansiGreen",
-                      "terminal.ansiYellow",
-                      "terminal.ansiBlue",
-                      "terminal.ansiMagenta",
-                      "terminal.ansiCyan",
-                      "terminal.ansiWhite"
-                    ],
-                    "description": "Color of the terminal"
-                  },
-                  "command": {
-                    "type": "string",
-                    "description": "Command to execute in the terminal"
-                  }
-                }
-              },
-              "default": [
-                {
-                  "name": "List",
-                  "color": "terminal.ansiBlue",
-                  "command": "ls"
-                },
-                {
-                  "name": "List with details",
-                  "color": "terminal.ansiGreen",
-                  "command": "ls -l"
-                },
-                {
-                  "name": "List all",
-                  "color": "terminal.ansiRed",
-                  "command": "ls -a"
-                }
-              ],
-              "description": "Configuration for the three terminals"
-            }
-          }
-        }
+        "title": "Launch multiple terminals"
       }
     ]
   },
@@ -91,19 +39,20 @@
   "devDependencies": {
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/sinon": "^17.0.3",
     "@types/vscode": "^1.97.0",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.19.0",
+    "sinon": "^19.0.2",
     "ts-loader": "^9.5.2",
     "typescript": "^5.7.3",
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "multi-shell-executor": "file:",
-    "sinon": "^19.0.2"
+    "multi-shell-executor": "file:"
   }
 }

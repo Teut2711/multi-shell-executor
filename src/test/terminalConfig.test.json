@@ -1,20 +1,26 @@
 [
-  {
-    "name": "List",
-    "color": "terminal.ansiBlue",
-    "command": "ls",
-    "cwd": "."
-  },
-  {
-    "name": "List with details",
-    "color": "terminal.ansiGreen",
-    "command": "ls -l",
-    "cwd": "."
-  },
-  {
-    "name": "List all",
-    "color": "terminal.ansiRed",
-    "command": "ls -a",
-    "cwd": "."
-  }
+    {
+        "name": "List",
+        "color": "terminal.ansiBlue",
+        "command": "ls",
+        "cwd": ".",
+        "delay": 1000,
+        "shellName": "powershell"
+    },
+    {
+        "name": "List with details",
+        "color": "terminal.ansiGreen",
+        "command": "ls -l",
+        "cwd": ".",
+        "delay": 2000,
+        "shellName": "cmd"
+    },
+    {
+        "name": "List all",
+        "color": "terminal.ansiRed",
+        "command": "ls -a",
+        "cwd": ".",
+        "delay": 3000,
+        "shellName": "bash"
+    }
 ]

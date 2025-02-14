@@ -1,53 +1,72 @@
 import * as vscode from "vscode";
+import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
-
-const ANSI_COLORS = [
-  "Blue",
-  "Green",
-  "Red",
-  "Yellow",
-  "Magenta",
-  "Cyan",
-  "BrightBlue",
-  "BrightGreen",
-  "BrightRed",
-  "BrightYellow",
-  "BrightMagenta",
-  "BrightCyan",
-];
 
 export interface TerminalConfig {
   name: string;
   color?: string;
-  command?: string;
   cwd?: string;
+  shellName?: string;
+  command?: string;
+  delay?: number;
 }
 
-export function createAndShowTerminal(
-  config: TerminalConfig,
-  index: number
-): void {
+const ANSI_COLORS = ["Red", "Green", "Blue", "Yellow", "Cyan", "Magenta"];
+
+function getWindowsTerminalPath(shellName: string | undefined): string {
+  let shellPath: string = {
+    win32: `${shellName || "bash"}.exe`,
+    darwin: `/bin/${shellName || "zsh"}`,
+    linux: `/usr/bin/${shellName || "bash"}`,
+  }[process.platform as "win32" | "darwin" | "linux"];
+
+  if (shellName === "bash") {
+    try {
+      const gitPath = execSync("where git").toString().split("\n")[0].trim();
+      if (gitPath) {
+        return gitPath.replace(/(Git)[\\/].*$/, "$1\\bin\\bash.exe");
+      }
+    } catch (error: unknown) {
+      throw new Error("Git Bash not found. Please install Git.");
+    }
+  }
+
+  return shellPath;
+}
+
+export function createAndShowTerminal(config: TerminalConfig, index: number): number {
   const terminalColor =
     config.color || `terminal.ansi${ANSI_COLORS[index % ANSI_COLORS.length]}`;
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || "."; // Ensure a valid workspace path
+  const cwd = `${workspaceFolder}/${config.cwd || "."}`;
 
-  const workspaceFolder = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-  const cwd = config.cwd ? `${workspaceFolder}/${config.cwd}` : workspaceFolder;
+  let shellPath: string;
+  try {
+    shellPath = getWindowsTerminalPath(config.shellName);
+  } catch (e: unknown) {
+    vscode.window.showErrorMessage(e instanceof Error ? e.message : String(e));
+    return 0;
+  }
 
   const terminal = vscode.window.createTerminal({
     name: config.name,
     color: new vscode.ThemeColor(terminalColor),
-    cwd: cwd,
+    cwd,
+    shellPath,
   });
 
   terminal.show();
 
   if (config.command) {
-    terminal.sendText(config.command);
+    setTimeout(() => {
+      terminal.sendText(config.command!);
+    }, config.delay || 0);
   }
+  return 1;
 }
 
-export function readConfig(): TerminalConfig[] {
+export function readConfig(configPathRelativeToWorkSpace:string): TerminalConfig[] {
   const workspaceFolder: string | undefined =
     vscode.workspace.workspaceFolders?.[0].uri.fsPath;
   if (!workspaceFolder) {
@@ -56,16 +75,16 @@ export function readConfig(): TerminalConfig[] {
     );
     return [];
   }
-
+  
   const configPath: string = path.join(
     workspaceFolder,
-    ".vscode",
-    "terminalsConfig.json"
+   configPathRelativeToWorkSpace
   );
+
 
   if (!fs.existsSync(configPath)) {
     vscode.window.showInformationMessage(
-      `[Multi Shell Executor] Configuration file not found at ${configPath}. Please create a terminalsConfig.json file in the .vscode directory of your workspace.`
+      `[Multi Shell Executor] Configuration file not found at ${configPathRelativeToWorkSpace}. Please create a terminalConfig.json file in the .vscode directory of your workspace.`
     );
     return [];
   }
@@ -77,7 +96,7 @@ export function readConfig(): TerminalConfig[] {
     terminalConfig = JSON.parse(configContent);
   } catch (error) {
     vscode.window.showErrorMessage(
-      "[Multi Shell Executor] Failed to parse terminalsConfig.json. Please ensure it is valid JSON."
+      "[Multi Shell Executor] Failed to parse terminalConfig.json. Please ensure it is valid JSON."
     );
     terminalConfig = [];
   }

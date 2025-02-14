@@ -3,6 +3,7 @@
 import * as vscode from "vscode";
 
 import { createAndShowTerminal, readConfig, TerminalConfig } from "./terminal";
+import path from "path";
 
 export function activate(context: vscode.ExtensionContext): void {
   console.log('Your extension "multi-shell-executor" is now active!');
@@ -10,7 +11,13 @@ export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand(
     "multi-shell-executor.launchTerminals",
     (): void => {
-      let terminalConfig: TerminalConfig[] = readConfig();
+
+        const basePath: string = path.join(
+          ".vscode",
+          "terminalConfig.json"
+        );
+      
+      let terminalConfig: TerminalConfig[] = readConfig(basePath);
 
       if (terminalConfig.length === 0) {
         vscode.window.showInformationMessage(
@@ -18,13 +25,13 @@ export function activate(context: vscode.ExtensionContext): void {
         );
         return;
       }
-
+      let spawnedTerminalsCount = 0; 
       terminalConfig.forEach((config: TerminalConfig, index: number): void => {
-        createAndShowTerminal(config, index);
+        spawnedTerminalsCount +=createAndShowTerminal(config, index);
       });
 
       vscode.window.showInformationMessage(
-        `[Multi Shell Executor] Spawned ${terminalConfig.length} shells`
+        `[Multi Shell Executor] Spawned ${spawnedTerminalsCount} shells`
       );
     }
   );
