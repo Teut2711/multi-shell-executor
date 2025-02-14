@@ -75,7 +75,7 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 
 ## Release Notes
 
-### 0.0.1
+### 0.0.2
 
 - Initial release with terminal configuration and execution support.
 
