@@ -7,7 +7,8 @@ Multi-Shell Executor is a Visual Studio Code extension that allows you to config
 - Launch multiple terminals with predefined commands and working directories.
 - Customize terminal names, colors, and commands.
 - Supports both Unix-like systems and Windows.
-- Easy configuration via `settings.json`.
+- Easy configuration via `terminalConfig.json`.
+- **New:** Use terminal profile names instead of shell paths for more flexibility.
 
 ## Installation
 
@@ -31,7 +32,7 @@ Multi-Shell Executor is a Visual Studio Code extension that allows you to config
 
 ## Configuration
 
-To configure Multi-Shell Executor, add your terminal settings to `settings.json` located at `/D:/multi-shell-executor/settings.json`.
+To configure Multi-Shell Executor, add your terminal settings to `terminalConfig.json` located in the `.vscode` directory of your workspace.
 
 ### Example Configuration
 `.vscode/terminalConfig.json`
@@ -106,8 +107,8 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 
 ### Steps to Apply Configuration
 
-1. Open `settings.json` in your editor.
-2. Add or modify the `multi-shell-executer.config` section.
+1. Create or open `.vscode/terminalConfig.json` in your workspace.
+2. Add your terminal configurations as shown in the example above.
 3. Save the file.
 4. Restart VS Code to apply the changes.
 
@@ -120,8 +121,7 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 ## Release Notes
 
 ### 0.0.2
-
-- Initial release with terminal configuration and execution support.
+ 
 
 ## License
 
