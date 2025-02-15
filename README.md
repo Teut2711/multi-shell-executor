@@ -100,22 +100,6 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
         "cwd": "network",
         "delay": 4000,
         "shellName": "cmd"
-    },
-    {
-        "name": "Check Disk Space",
-        "color": "terminal.ansiCyan",
-        "command": "df -h",
-        "cwd": "storage",
-        "delay": 4500,
-        "shellName": "bash"
-    },
-    {
-        "name": "List Running Processes",
-        "color": "terminal.ansiBrightWhite",
-        "command": "tasklist",
-        "cwd": "processes",
-        "delay": 5000,
-        "shellName": "powershell"
     }
 ]
 ```
