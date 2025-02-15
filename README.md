@@ -34,30 +34,90 @@ Multi-Shell Executor is a Visual Studio Code extension that allows you to config
 To configure Multi-Shell Executor, add your terminal settings to `settings.json` located at `/D:/multi-shell-executor/settings.json`.
 
 ### Example Configuration
-
+`.vscode/terminalConfig.json`
 ```json
-{
-  "multi-shell-executer.config": [
+[
     {
-      "name": "List",
-      "color": "terminal.ansiBlue",
-      "command": "ls",
-      "cwd": "path/to/directory"
+        "name": "Check Node Version",
+        "color": "terminal.ansiBrightCyan",
+        "command": "node -v",
+        "cwd": ".",
+        "delay": 500,
+        "shellName": "powershell"
     },
     {
-      "name": "List with details",
-      "color": "terminal.ansiGreen",
-      "command": "ls -l",
-      "cwd": "path/to/directory"
+        "name": "List Files (Detailed)",
+        "color": "terminal.ansiBrightGreen",
+        "command": "ls -lh",
+        "cwd": "projects",
+        "delay": 1000,
+        "shellName": "cmd"
     },
     {
-      "name": "List all",
-      "color": "terminal.ansiRed",
-      "command": "ls -a",
-      "cwd": "path/to/directory"
+        "name": "Ping Google",
+        "color": "terminal.ansiBrightBlue",
+        "command": "ping -n 3 google.com",
+        "cwd": ".",
+        "delay": 1500,
+        "shellName": "cmd"
+    },
+    {
+        "name": "System Info",
+        "color": "terminal.ansiYellow",
+        "command": "systeminfo",
+        "cwd": "scripts",
+        "delay": 2000,
+        "shellName": "powershell"
+    },
+    {
+        "name": "Show Environment Variables",
+        "color": "terminal.ansiBrightMagenta",
+        "command": "printenv",
+        "cwd": "configs",
+        "delay": 2500,
+        "shellName": "bash"
+    },
+    {
+        "name": "Check Python Version",
+        "color": "terminal.ansiRed",
+        "command": "python --version",
+        "cwd": "python_scripts",
+        "delay": 3000,
+        "shellName": "bash"
+    },
+    {
+        "name": "Echo a Message",
+        "color": "terminal.ansiBrightBlack",
+        "command": "echo 'Hello from the terminal!'",
+        "cwd": "logs",
+        "delay": 3500,
+        "shellName": "bash"
+    },
+    {
+        "name": "Network Configuration",
+        "color": "terminal.ansiBrightYellow",
+        "command": "ipconfig /all",
+        "cwd": "network",
+        "delay": 4000,
+        "shellName": "cmd"
+    },
+    {
+        "name": "Check Disk Space",
+        "color": "terminal.ansiCyan",
+        "command": "df -h",
+        "cwd": "storage",
+        "delay": 4500,
+        "shellName": "bash"
+    },
+    {
+        "name": "List Running Processes",
+        "color": "terminal.ansiBrightWhite",
+        "command": "tasklist",
+        "cwd": "processes",
+        "delay": 5000,
+        "shellName": "powershell"
     }
-  ]
-}
+]
 ```
 
 ### Steps to Apply Configuration
@@ -75,7 +135,7 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 
 ## Release Notes
 
-### 0.0.1
+### 0.0.2
 
 - Initial release with terminal configuration and execution support.
 

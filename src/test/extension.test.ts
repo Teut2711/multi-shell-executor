@@ -91,7 +91,7 @@ suite("Extension Test Suite", () => {
       __dirname,
       "terminalConfig.test.json"
     );
-    console.log(fixturePath)
+    console.log(fixturePath);
     const fixtureContent: TerminalConfig[] = readConfig(fixturePath);
       
     

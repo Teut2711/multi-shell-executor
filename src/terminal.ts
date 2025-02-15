@@ -12,15 +12,11 @@ export interface TerminalConfig {
   delay?: number;
 }
 
+type Platform = "win32" | "darwin" | "linux";
+
 const ANSI_COLORS = ["Red", "Green", "Blue", "Yellow", "Cyan", "Magenta"];
 
-function getWindowsTerminalPath(shellName: string | undefined): string {
-  let shellPath: string = {
-    win32: `${shellName || "bash"}.exe`,
-    darwin: `/bin/${shellName || "zsh"}`,
-    linux: `/usr/bin/${shellName || "bash"}`,
-  }[process.platform as "win32" | "darwin" | "linux"];
-
+function getWindowsShellPath(shellName: string | undefined): string {
   if (shellName === "bash") {
     try {
       const gitPath = execSync("where git").toString().split("\n")[0].trim();
@@ -31,9 +27,31 @@ function getWindowsTerminalPath(shellName: string | undefined): string {
       throw new Error("Git Bash not found. Please install Git.");
     }
   }
-
-  return shellPath;
+  return `${shellName || "powershell"}.exe`;
 }
+
+function getMacShellPath(shellName: string | undefined): string {
+  return `/bin/${shellName || "zsh"}`;
+}
+
+function getLinuxShellPath(shellName: string | undefined): string {
+  return `/usr/bin/${shellName || "bash"}`;
+}
+
+function getShellPath(shellName: string | undefined): string {
+  const platform: Platform = process.platform as Platform;
+  switch (platform) {
+    case "win32":
+      return getWindowsShellPath(shellName);
+    case "darwin":
+      return getMacShellPath(shellName);
+    case "linux":
+      return getLinuxShellPath(shellName);
+    default:
+      throw new Error("Unsupported platform.");
+  }
+}
+
 
 export function createAndShowTerminal(config: TerminalConfig, index: number): number {
   const terminalColor =
@@ -41,14 +59,13 @@ export function createAndShowTerminal(config: TerminalConfig, index: number): nu
   const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || "."; // Ensure a valid workspace path
   const cwd = `${workspaceFolder}/${config.cwd || "."}`;
 
-  let shellPath: string;
+ let shellPath: string;
   try {
-    shellPath = getWindowsTerminalPath(config.shellName);
+    shellPath = getShellPath(config.shellName);
   } catch (e: unknown) {
     vscode.window.showErrorMessage(e instanceof Error ? e.message : String(e));
     return 0;
   }
-
   const terminal = vscode.window.createTerminal({
     name: config.name,
     color: new vscode.ThemeColor(terminalColor),

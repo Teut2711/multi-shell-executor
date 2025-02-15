@@ -47,16 +47,69 @@
       },
       "shellName": {
         "type": "string",
-        "description": "The name of the shell to use",
+        "description": "The name of the shell to use"
+      },
+      "platform": {
+        "type": "string",
+        "description": "The operating system",
         "enum": [
-          "powershell",
-          "cmd",
-          "bash",
-          "zsh",
-          "git"
+          "win32",
+          "darwin",
+          "linux"
         ]
       }
     },
-    "required": ["name"]
+    "required": [
+      "name",
+      "platform"
+    ],
+    "if": {
+      "properties": {
+        "platform": {
+          "const": "win32"
+        }
+      }
+    },
+    "then": {
+      "properties": {
+        "shellName": {
+          "enum": [
+            "powershell",
+            "cmd",
+            "bash"
+          ]
+        }
+      }
+    },
+    "else": {
+      "if": {
+        "properties": {
+          "platform": {
+            "const": "darwin"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shellName": {
+            "enum": [
+              "bash",
+              "zsh",
+              "sh"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "shellName": {
+            "enum": [
+              "bash",
+              "sh"
+            ]
+          }
+        }
+      }
+    }
   }
 }
