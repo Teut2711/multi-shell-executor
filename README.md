@@ -36,28 +36,32 @@ To configure Multi-Shell Executor, add your terminal settings to `settings.json`
 ### Example Configuration
 
 ```json
-{
-  "multi-shell-executer.config": [
+[
     {
-      "name": "List",
-      "color": "terminal.ansiBlue",
-      "command": "ls",
-      "cwd": "path/to/directory"
+        "name": "List",
+        "color": "terminal.ansiBlue",
+        "command": "ls",
+        "cwd": ".",
+        "delay": 1000,
+        "shellName": "powershell"
     },
     {
-      "name": "List with details",
-      "color": "terminal.ansiGreen",
-      "command": "ls -l",
-      "cwd": "path/to/directory"
+        "name": "List with details",
+        "color": "terminal.ansiGreen",
+        "command": "ls -l",
+        "cwd": ".",
+        "delay": 2000,
+        "shellName": "cmd"
     },
     {
-      "name": "List all",
-      "color": "terminal.ansiRed",
-      "command": "ls -a",
-      "cwd": "path/to/directory"
+        "name": "List all",
+        "color": "terminal.ansiRed",
+        "command": "ls -a",
+        "cwd": ".",
+        "delay": 3000,
+        "shellName": "bash"
     }
-  ]
-}
+]
 ```
 
 ### Steps to Apply Configuration
